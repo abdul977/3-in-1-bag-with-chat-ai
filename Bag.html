@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>muahib stores - 3 in 1 Bag</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin:0;
+      padding:0;
+    }
+
+    body {
+      font-family: "Helvetica Neue", Arial, sans-serif;
+      background: linear-gradient(to bottom right, #fafafa, #f0f0f0);
+      color:#333;
+      line-height:1.5;
+    }
+
+    main {
+      max-width:900px;
+      margin:20px auto;
+      padding:20px;
+    }
+
+    header {
+      text-align:center;
+      background:#fff;
+      border-radius:8px;
+      padding:20px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom:20px;
+    }
+
+    header h1 {
+      font-size:26px;
+      margin-bottom:5px;
+      color:#333;
+      font-weight:600;
+    }
+
+    header h2 {
+      font-size:16px;
+      color:#666;
+      font-weight:400;
+    }
+
+    .product-display-component {
+      background:#fff;
+      border-radius:8px;
+      padding:20px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom:20px;
+    }
+
+    .product-display {
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+    }
+
+    .product-display img.main-image {
+      max-width:100%;
+      height:auto;
+      border-radius:5px;
+      margin-bottom:15px;
+      transition:transform 0.3s ease;
+    }
+
+    .product-display img.main-image:hover {
+      transform: scale(1.02);
+    }
+
+    .preview-images {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-bottom:20px;
+    }
+
+    .preview-images img {
+      width:60px;
+      height:60px;
+      object-fit:cover;
+      cursor:pointer;
+      border-radius:3px;
+      border:2px solid transparent;
+      transition:transform 0.3s ease, border-color 0.3s ease;
+    }
+
+    .preview-images img:hover {
+      border-color:#333;
+      transform:scale(1.1);
+    }
+
+    .price-section {
+      background:#fff;
+      border-radius:8px;
+      padding:20px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom:20px;
+      text-align:center;
+    }
+
+    .price-section h3 {
+      margin-top:0;
+      font-size:22px;
+      color:#222;
+      font-weight:600;
+    }
+
+    .price-section p {
+      margin:10px 0;
+      font-size:15px;
+      color:#555;
+    }
+
+    .description-section {
+      background:#fff;
+      border-radius:8px;
+      padding:20px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom:20px;
+    }
+
+    .description-section h3 {
+      font-size:20px;
+      margin-bottom:15px;
+      font-weight:600;
+      color:#222;
+      text-align:center;
+    }
+
+    .description-text {
+      font-size:15px;
+      color:#444;
+      margin-bottom:25px;
+      line-height:1.6;
+      text-align:center;
+    }
+
+    .description-grid {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:20px;
+      align-items:center;
+    }
+
+    .description-grid img {
+      width:100%;
+      border-radius:5px;
+      transition:transform 0.3s ease;
+    }
+
+    .description-grid img:hover {
+      transform:scale(1.02);
+    }
+
+    .description-grid .desc-content {
+      font-size:15px;
+      color:#444;
+      line-height:1.6;
+    }
+
+    .description-grid h4 {
+      font-size:17px;
+      margin-bottom:10px;
+      font-weight:600;
+      color:#222;
+    }
+
+    .cta-button {
+      display:inline-block;
+      background:#28a745;
+      color:#fff;
+      padding:12px 20px;
+      border:none;
+      border-radius:4px;
+      text-decoration:none;
+      font-weight:600;
+      font-size:14px;
+      transition:background 0.3s ease, transform 0.3s ease;
+      text-align:center;
+    }
+
+    .cta-button:hover, .cta-button:focus {
+      background:#218838;
+      transform:scale(1.02);
+      outline: none;
+    }
+
+    .cta-wrapper {
+      text-align:center;
+      margin-top:20px;
+    }
+
+    .order-form-section {
+      background:#fff;
+      border-radius:8px;
+      padding:20px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.05);
+      margin-bottom:20px;
+    }
+
+    .order-form-section h3 {
+      font-size:20px;
+      margin-bottom:10px;
+      font-weight:600;
+      color:#222;
+      text-align:center;
+    }
+
+    .order-note {
+      background:#f7f7f7;
+      padding:10px;
+      border-radius:4px;
+      font-size:14px;
+      margin-bottom:20px;
+      color:#555;
+      text-align:center;
+    }
+
+    .order-info {
+      font-size:14px;
+      color:#333;
+      margin-bottom:20px;
+      text-align:center;
+    }
+
+    form {
+      max-width:500px;
+      margin:0 auto;
+    }
+
+    form label {
+      display:block;
+      margin-bottom:5px;
+      font-weight:bold;
+      font-size:14px;
+      color:#333;
+    }
+
+    form input, form select, form textarea {
+      width:100%;
+      padding:10px;
+      margin-bottom:15px;
+      border:1px solid #ccc;
+      border-radius:4px;
+      font-size:14px;
+    }
+
+    form input:focus, form select:focus, form textarea:focus {
+      border-color:#007bff;
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    form textarea {
+      height:80px;
+      resize:vertical;
+    }
+
+    .submit-order-button {
+      background:#007bff;
+      color:#fff;
+      padding:12px 24px;
+      border:none;
+      border-radius:4px;
+      cursor:pointer;
+      font-weight:bold;
+      font-size:14px;
+      transition:background 0.3s ease, transform 0.3s ease;
+      width:100%;
+      text-align:center;
+      margin-top:10px;
+    }
+
+    .submit-order-button:hover, .submit-order-button:focus {
+      background:#0056b3;
+      transform:scale(1.02);
+      outline: none;
+    }
+
+    footer {
+      text-align:center;
+      font-size:14px;
+      color:#999;
+      margin:20px 0;
+    }
+
+    /* Modal Styles */
+    .modal {
+      display: none; /* Hidden by default */
+      position: fixed; /* Stay in place */
+      z-index: 1000; /* Sit on top */
+      left: 0;
+      top: 0;
+      width: 100%; /* Full width */
+      height: 100%; /* Full height */
+      overflow: auto; /* Enable scroll if needed */
+      background-color: rgba(0,0,0,0.5); /* Black w/ opacity */
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 15% auto; /* 15% from the top and centered */
+      padding: 20px;
+      border: 1px solid #888;
+      width: 80%;
+      max-width: 500px;
+      border-radius: 8px;
+      text-align: center;
+    }
+
+    .close-modal {
+      color: #aaa;
+      float: right;
+      font-size: 28px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .close-modal:hover,
+    .close-modal:focus {
+      color: black;
+      text-decoration: none;
+      cursor: pointer;
+    }
+
+    /* Responsive Design */
+    @media (max-width:600px) {
+      .description-grid {
+        grid-template-columns:1fr;
+      }
+
+      .product-display img.main-image {
+        margin-bottom:10px;
+      }
+
+      .preview-images img {
+        width:50px;
+        height:50px;
+      }
+
+      header h1 {
+        font-size:22px;
+      }
+
+      header h2 {
+        font-size:14px;
+      }
+
+      .cta-button {
+        width:100%;
+        margin-top:10px;
+      }
+
+      form {
+        width:100%;
+      }
+
+      /* Ensure video is responsive on small screens */
+      .description-video {
+        width: 100%;
+        height: auto;
+        border-radius:5px;
+        margin:20px 0;
+        position: relative;
+        cursor: pointer;
+      }
+
+      .play-button {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 64px;
+        height: 64px;
+        background: rgba(0, 0, 0, 0.6);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .play-button::before {
+        content: '';
+        border-style: solid;
+        border-width: 12px 0 12px 20px;
+        border-color: transparent transparent transparent #fff;
+        margin-left: 5px;
+      }
+    }
+
+    /* Styles for Play Overlay */
+    .description-video {
+      position: relative;
+      width: 100%;
+      max-width: 800px;
+      margin: 20px auto;
+      cursor: pointer;
+    }
+
+    .description-video video {
+      width: 100%;
+      height: auto;
+      border-radius:5px;
+      display: block;
+    }
+
+    .play-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius:5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: opacity 0.3s ease;
+    }
+
+    .play-overlay:hover {
+      background: rgba(0, 0, 0, 0.6);
+    }
+
+    .play-button {
+      width: 64px;
+      height: 64px;
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .play-button::before {
+      content: '';
+      border-style: solid;
+      border-width: 12px 0 12px 20px;
+      border-color: transparent transparent transparent #fff;
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
+
+<main>
+  <header>
+    <h1>muahib stores</h1>
+    <h2>3 in 1 Multipurpose Bag</h2>
+  </header>
+
+  <section class="product-display-component">
+    <div class="product-display">
+      <img src="https://doritstore.com/wp-content/uploads/2024/12/IMG_20241215_215501_566.jpg" 
+           alt="3 in 1 Bag" class="main-image" id="mainImage">
+      <div class="preview-images">
+        <img src="https://doritstore.com/wp-content/uploads/2024/12/IMG_20241215_215501_566-150x150.jpg" alt="Preview" onclick="changeImage('https://doritstore.com/wp-content/uploads/2024/12/IMG_20241215_215501_566.jpg')" tabindex="0" aria-label="Preview Image 1">
+        <img src="https://doritstore.com/wp-content/uploads/2024/12/IMG_20241215_215500_804-150x150.jpg" alt="Preview" onclick="changeImage('https://doritstore.com/wp-content/uploads/2024/12/IMG_20241215_215500_804.jpg')" tabindex="0" aria-label="Preview Image 2">
+        <img src="https://doritstore.com/wp-content/uploads/2024/12/IMG_20241215_215501_420-150x150.jpg" alt="Preview" onclick="changeImage('https://doritstore.com/wp-content/uploads/2024/12/IMG_20241215_215501_420.jpg')" tabindex="0" aria-label="Preview Image 3">
+        <img src="https://doritstore.com/wp-content/uploads/2024/12/IMG_20241215_215501_562-150x150.jpg" alt="Preview" onclick="changeImage('https://doritstore.com/wp-content/uploads/2024/12/IMG_20241215_215501_562.jpg')" tabindex="0" aria-label="Preview Image 4">
+        <img src="https://doritstore.com/wp-content/uploads/2024/12/IMG_20241215_215501_639-150x150.jpg" alt="Preview" onclick="changeImage('https://doritstore.com/wp-content/uploads/2024/12/IMG_20241215_215501_639.jpg')" tabindex="0" aria-label="Preview Image 5">
+        <img src="https://doritstore.com/wp-content/uploads/2024/12/IMG_20241215_215501_357-150x150.jpg" alt="Preview" onclick="changeImage('https://doritstore.com/wp-content/uploads/2024/12/IMG_20241215_215501_357.jpg')" tabindex="0" aria-label="Preview Image 6">
+      </div>
+    </div>
+    <div class="cta-wrapper">
+      <a href="#orderForm" class="cta-button" role="button">Order Now</a>
+    </div>
+  </section>
+
+  <section class="price-section">
+    <h3>Price: ₦15,000</h3>
+    <p>Quality meets style at a fair price. Payment is collected upon delivery.</p>
+    <div class="cta-wrapper">
+      <a href="#orderForm" class="cta-button" role="button">Order Now</a>
+    </div>
+  </section>
+
+  <section class="description-section">
+    <h3>Description</h3>
+    <p class="description-text">
+      This 3-in-1 set includes a spacious backpack, a handy crossbody, and a compact pouch. Each piece is built with sturdy stitching, smooth zippers, and a modern design that adapts to school, work, travel, or weekend errands.
+    </p>
+
+    <div class="description-grid">
+      <div>
+        <img src="https://doritstore.com/wp-content/uploads/2024/12/IMG_20241215_215501_420-600x600.jpg" alt="Spacious Backpack">
+      </div>
+      <div class="desc-content">
+        <h4>Spacious Backpack</h4>
+        <p>Roomy enough for your laptop, books, and daily essentials. The well-structured interior keeps items accessible and organized.</p>
+      </div>
+    </div>
+
+    <div class="description-grid" style="margin-top:20px;">
+      <div class="desc-content">
+        <h4>Handy Crossbody & Pouch</h4>
+        <p>The crossbody holds quick-grab items like wallets and phones, while the compact pouch is perfect for chargers, makeup, or accessories. Switch between them as your day changes.</p>
+      </div>
+      <div>
+        <img src="https://doritstore.com/wp-content/uploads/2024/12/IMG_20241215_215500_804-600x600.jpg" alt="Crossbody and Pouch">
+      </div>
+    </div>
+
+    <!-- Optimized Video with Play Overlay -->
+    <div class="description-video" onclick="playVideo()" tabindex="0" aria-label="Play Product Video">
+      <video id="productVideo" poster="https://doritstore.com/wp-content/uploads/2024/12/IMG_20241215_215501_566.jpg" preload="none">
+        <source src="http://store.muahib.com.ng/wp-content/uploads/2024/12/dbb937c710a7feb39a86d399a6427477.mp4" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <div class="play-overlay" id="playOverlay">
+        <div class="play-button" aria-hidden="true"></div>
+      </div>
+    </div>
+
+    <p class="description-text" style="margin-top:20px;">
+      No more fumbling through cluttered bags—each piece has its place. Move through your day confident that your essentials are secure, organized, and easy to find. The versatile design ensures you’re prepared for any occasion, whether it’s a busy day at the office, a casual outing with friends, or an adventurous weekend trip.
+    </p>
+
+    <div class="cta-wrapper">
+      <a href="#orderForm" class="cta-button" role="button">Order Now</a>
+    </div>
+  </section>
+
+  <section class="order-form-section" id="orderForm">
+    <h3>Place Your Order</h3>
+    <div class="order-note">All orders will be delivered within 3 to 5 working days.</div>
+    <div class="order-info">
+      Your Order Number: <span id="displayOrderNumber" style="font-weight:bold;color:#333;"></span>
+    </div>
+    <form onsubmit="sendOrder(event)" aria-labelledby="orderFormTitle">
+      <!-- Item Selection -->
+      <label for="item">Item</label>
+      <select id="item" required aria-required="true" aria-label="Select Item">
+        <option value="3 in 1 Multipurpose Bag">3 in 1 Multipurpose Bag</option>
+        <!-- Add more items here if needed -->
+      </select>
+
+      <!-- Quantity -->
+      <label for="quantity">Quantity</label>
+      <input type="number" id="quantity" min="1" value="1" required placeholder="Enter quantity" aria-required="true" aria-label="Enter Quantity">
+
+      <!-- Total Amount -->
+      <label for="totalAmount">Total Amount (₦)</label>
+      <input type="text" id="totalAmount" readonly value="₦15,000.00" placeholder="Total amount" aria-label="Total Amount">
+
+      <!-- Delivery Option -->
+      <label for="deliveryOption">Delivery Option</label>
+      <select id="deliveryOption" required aria-required="true" aria-label="Select Delivery Option">
+        <option value="">Select Option</option>
+        <option value="Delivery">Delivery</option>
+        <option value="Pick Up">Pick Up</option>
+      </select>
+
+      <!-- Customer Details -->
+      <label for="name">Full Name</label>
+      <input type="text" id="name" required placeholder="Enter your full name" aria-required="true" aria-label="Enter Full Name">
+
+      <label for="location">Location</label>
+      <input type="text" id="location" required placeholder="Enter your delivery location" aria-required="true" aria-label="Enter Location">
+
+      <label for="whatsapp">WhatsApp Number</label>
+      <input type="text" id="whatsapp" required placeholder="Enter your WhatsApp number" aria-required="true" aria-label="Enter WhatsApp Number" pattern="^\+?234\d{10}$" title="Enter a valid Nigerian WhatsApp number, e.g., +2348144493361">
+
+      <!-- Payment Note -->
+      <p style="font-size:14px; color:#555; margin-bottom:15px;">
+        💡 Payment Required Before Delivery
+      </p>
+      <p style="font-size:14px; color:#555; margin-bottom:15px;">
+        🛍️ <strong>Note:</strong> For deliveries outside Abuja, payment must be made before delivery.
+      </p>
+
+      <!-- Have a Question? (Optional) -->
+      <label for="question">Have a Question? (Optional)</label>
+      <textarea id="question" placeholder="Ask the seller a question..." aria-label="Ask a Question (Optional)"></textarea>
+
+      <button type="submit" class="submit-order-button" aria-label="Submit Order">Submit Order</button>
+    </form>
+  </section>
+</main>
+
+<!-- Modal for Order Confirmation -->
+<div id="orderModal" class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle" aria-describedby="modalDesc">
+  <div class="modal-content">
+    <span class="close-modal" onclick="closeModal()" aria-label="Close Modal">&times;</span>
+    <h2 id="modalTitle">Order Submitted!</h2>
+    <p id="modalDesc">Thank you for your order. We will contact you shortly to confirm the details.</p>
+    <button onclick="closeModal()" class="cta-button" aria-label="Close Confirmation">Close</button>
+  </div>
+</div>
+
+<footer>
+  &copy; 2024 muahib stores
+</footer>
+
+<script>
+  // Change main image preview
+  function changeImage(src) {
+    document.getElementById('mainImage').src = src;
+  }
+
+  // Generate a random order number in the format #MH-M4EFIGBW-ZZ732
+  function generateOrderNumber() {
+    const prefix = "#MH-";
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let orderNum = "";
+    for (let i = 0; i < 8; i++) {
+      orderNum += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    orderNum += "-";
+    for (let i = 0; i < 4; i++) {
+      orderNum += chars.charAt(Math.floor(Math.random() * chars.length));
+    }
+    return prefix + orderNum;
+  }
+
+  // Update total amount based on quantity and apply discounts
+  function updateTotalAmount() {
+    const quantity = parseInt(document.getElementById('quantity').value) || 1;
+    const unitPrice = 15000; // ₦15,000.00 per bag
+    let discount = 0;
+
+    if (quantity >= 6) {
+      discount = 0.10; // 10% discount
+    } else if (quantity >= 3) {
+      discount = 0.05; // 5% discount
+    }
+
+    const totalBeforeDiscount = unitPrice * quantity;
+    const discountAmount = totalBeforeDiscount * discount;
+    const total = totalBeforeDiscount - discountAmount;
+
+    document.getElementById('totalAmount').value = `₦${total.toLocaleString()}.00`;
+  }
+
+  // Set order number on page load
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('displayOrderNumber').textContent = generateOrderNumber();
+    updateTotalAmount();
+  });
+
+  // Update total amount when quantity changes
+  document.getElementById('quantity').addEventListener('input', updateTotalAmount);
+
+  function sendOrder(e) {
+    e.preventDefault();
+
+    // Retrieve form values with sanitization
+    var item = sanitizeInput(document.getElementById('item').value.trim());
+    var quantity = sanitizeInput(document.getElementById('quantity').value.trim());
+    var totalAmount = sanitizeInput(document.getElementById('totalAmount').value.trim());
+    var deliveryOption = sanitizeInput(document.getElementById('deliveryOption').value.trim());
+    var name = sanitizeInput(document.getElementById('name').value.trim());
+    var location = sanitizeInput(document.getElementById('location').value.trim());
+    var whatsapp = sanitizeInput(document.getElementById('whatsapp').value.trim());
+    var question = sanitizeInput(document.getElementById('question').value.trim());
+    var orderNumber = sanitizeInput(document.getElementById('displayOrderNumber').textContent.trim());
+
+    // Validate WhatsApp number format
+    var whatsappPattern = /^\+?234\d{10}$/;
+    if (!whatsappPattern.test(whatsapp)) {
+      alert("Please enter a valid Nigerian WhatsApp number, e.g., +2348144493361");
+      return;
+    }
+
+    var message = "🛍️ New Order " + orderNumber + "\n\n" +
+                  "Item: " + item + "\n" +
+                  "Quantity: " + quantity + "\n" +
+                  "Total Amount: " + totalAmount + "\n\n" +
+                  "Customer Details:\n" +
+                  "Name: " + name + "\n" +
+                  "Location: " + location + "\n" +
+                  "Delivery Option: " + deliveryOption + "\n\n" +
+                  "💡 Payment Required Before Delivery\n\n" +
+                  "Note: For deliveries outside Abuja, payment must be made before delivery.";
+
+    if(question) {
+      message += "\nCustomer Question: " + question;
+    }
+
+    var encodedMessage = encodeURIComponent(message);
+
+    // Open WhatsApp with the pre-filled message
+    window.open("https://wa.me/2348144493361?text=" + encodedMessage, "_blank");
+
+    // Show confirmation modal
+    showModal();
+  }
+
+  // Sanitize user input to prevent injection attacks
+  function sanitizeInput(input) {
+    var temp = document.createElement('div');
+    temp.textContent = input;
+    return temp.innerHTML;
+  }
+
+  // Modal functionality
+  function showModal() {
+    var modal = document.getElementById("orderModal");
+    modal.style.display = "block";
+    modal.setAttribute('aria-hidden', 'false');
+  }
+
+  function closeModal() {
+    var modal = document.getElementById("orderModal");
+    modal.style.display = "none";
+    modal.setAttribute('aria-hidden', 'true');
+  }
+
+  // Close modal when clicking outside of the modal content
+  window.onclick = function(event) {
+    var modal = document.getElementById("orderModal");
+    if (event.target == modal) {
+      closeModal();
+    }
+  }
+
+  // Play Video Functionality
+  function playVideo() {
+    var video = document.getElementById('productVideo');
+    var overlay = document.getElementById('playOverlay');
+    video.play();
+    overlay.style.display = 'none';
+  }
+
+  // Pause Video and Show Overlay when video ends
+  document.getElementById('productVideo').addEventListener('ended', function() {
+    var overlay = document.getElementById('playOverlay');
+    overlay.style.display = 'flex';
+  });
+
+  // Accessibility: Allow keyboard navigation for video play
+  document.querySelector('.description-video').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      playVideo();
+    }
+  });
+</script>
+</body>
+</html>
